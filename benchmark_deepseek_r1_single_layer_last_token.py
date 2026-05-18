@@ -149,10 +149,11 @@ def main():
                         action="store_true",
                         default=True,
                         help="Force random routing in MoE.")
-    parser.add_argument("--tag",
-                        type=str,
-                        default="",
-                        help="Tag to append to the profiler timestamp directory.")
+    parser.add_argument(
+        "--tag",
+        type=str,
+        default="",
+        help="Tag to append to the profiler timestamp directory.")
 
     args = parser.parse_args()
 
@@ -174,8 +175,9 @@ def main():
         os.environ["MODEL_IMPL_TYPE"] = "vllm"
         print("Using vLLM Torch implementation.")
 
-    from tpu_inference.platforms.tpu_platform import TpuPlatform
     import vllm.platforms
+
+    from tpu_inference.platforms.tpu_platform import TpuPlatform
     tpu_platform_instance = TpuPlatform()
     vllm.platforms._current_platform = tpu_platform_instance
     vllm.platforms.current_platform = tpu_platform_instance
