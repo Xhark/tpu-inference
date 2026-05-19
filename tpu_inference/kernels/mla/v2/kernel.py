@@ -9,7 +9,7 @@ from jax.experimental import pallas as pl
 from jax.experimental.pallas import tpu as pltpu
 import jax.numpy as jnp
 
-from google3.experimental.tpu_perf_showcase.vllm.kernels.mla.experimental.kv_fusion.transpose import xpose_pipeline
+from tpu_inference.kernels.mla.v2.transpose import xpose_pipeline
 import logging
 
 logger = logging.getLogger(__name__)
