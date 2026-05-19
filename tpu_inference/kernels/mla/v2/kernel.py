@@ -2247,8 +2247,9 @@ def prepare_outputs(
   try:
     # Tile to maximum of 160 (multi host bsz)
     # or nearest clean divisor of the number of tokens.
+    # Use smaller tiles to avoid VMEM OOM (e.g. 128x32 instead of 160x64).
     out = xpose_pipeline(
-        out, transpose_axes=(1, 0, 2), n_tile=160, m_tile=64
+        out, transpose_axes=(1, 0, 2), n_tile=128, m_tile=32
     )[0]
   except ValueError as e:
     sublane_multiple = get_dtype_packing(out.dtype) * 8
