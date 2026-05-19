@@ -290,8 +290,8 @@ def main():
 
         pairs_str = ", ".join(all_pairs)
 
-        if batch_sz > 0:
-            print(f"Step {len(step_times)}: b={batch_sz} {{ {pairs_str} }}")
+        #if batch_sz > 0:
+        #    print(f"Step {len(step_times)}: b={batch_sz} {{ {pairs_str} }}")
 
         # Collect logs if profiling is active for this step
         if profile_started:
