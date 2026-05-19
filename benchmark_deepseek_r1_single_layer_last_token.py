@@ -87,7 +87,7 @@ def main():
     parser.add_argument(
         "--profiler-trigger-kv-len",
         type=int,
-        default=9 * 1024,
+        default=9000,
         help=
         "Trigger profiling when batch size is max-num-seq * tp-size, all q len is 1, and all kv len >= this value."
     )
