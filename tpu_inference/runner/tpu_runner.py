@@ -1192,6 +1192,14 @@ class TPUModelRunner(KVConnectorModelRunnerMixin, LoRAModelRunnerMixin):
         if is_decode_only and self.enable_continue_decode:
             return self._execute_continue_decode(scheduler_output)
 
+        shard_lens = {}
+        for req_id, num_tokens in scheduler_output.num_scheduled_tokens.items():
+            rank = scheduler_output.assigned_dp_rank[req_id]
+            num_tokens_int = int(num_tokens)
+            if rank not in shard_lens:
+                shard_lens[rank] = []
+            shard_lens[rank].append(num_tokens_int)
+        logger.info(f"shard_lens = {shard_lens}")
         # TODO(pooyam): I guess we can remove returning sampling_metadata in `_prepare_inputs` after https://github.com/njhill/vllm/commit/b7433ca1a47732394b1bdea4099d98389515954b
         (
             input_ids,
